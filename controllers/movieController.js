@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Movie = require('../models/Movies')
+const User = require('../models/Users')
 
 module.exports ={
    getMain: (req, res, next)=>{
@@ -29,8 +30,6 @@ module.exports ={
       }).catch(err=> res.status(500).json({message: 'Something', err}))
       
    },
-   
-   
 
    findMovie: (req,res) => {
       Movie.findOne({title: req.query.movie}).then(movie=>{
@@ -80,6 +79,32 @@ module.exports ={
                   .json({ message: 'Movie wasn\'t added.', err });
             })
       }).catch(err => res.status(400).json({message:'Oops! Server error. Couldn\'t add movie'}))
+   },
+
+   addToFav: (req,res) => {
+      console.log(req.params.title)
+      User.findOne({email: req.user.email}).then((user) => {
+         if(user.favorites.includes(req.params.title)) return res.redirect('/movies')
+         user.favorites.push(req.params.title)
+         user.save().then((user) => {
+            return res.redirect('/movies')
+         }).catch(err=>res.status(500).json({message:'Error on saving',err}))
+      }).catch(err=>res.status(500).json({message:"Error on DB access", err}))
+   },
+
+   removeFromFav: (req,res) => {
+      User.findOne({email: req.user.email}).then(user=>{
+         user.favorites = user.favorites.reduce((array, movie) => {
+            if(movie !== req.params.title){
+               array.push(movie)
+            } 
+            return array
+         },[])
+         user.save().then((user) => {
+            return res.redirect('/movies/favorites')
+         }
+         ).catch(err=>res.status(500).json({message:'Error saving favorites', err}))
+      }).catch(err=> res.status(502).json('Having issues on the server'))
    },
 
    updateMovie: (req,res)=>{

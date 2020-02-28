@@ -16,13 +16,14 @@ const {
 } = require('../controllers/usersController')
 
 const {
-   myValidation
+   myValidation,
+   loginValidation
 } = require('../controllers/validators/validator')
 
-router.get('/', getAllUsers)
+router.get('/',loginValidation ,getAllUsers)
 router.get('/login', renderLogin)
 router.get('/register', renderRegister)
-router.get('/profile', renderProfile)
+router.get('/profile', loginValidation, renderProfile)
 router.get('/logout', logout)
 
 router.post('/login', login)
