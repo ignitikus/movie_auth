@@ -7,6 +7,7 @@ const {
   getMain,
   getAddMovie,
   getUpdateMovie,
+  getFavorites,
   findMovie,
   findByGenre,
   addMovie,
@@ -20,9 +21,10 @@ const {
 
 router.get('/', getMain);
 router.get('/getmovie', findMovie)
-router.get('/filteredbygenre', findByGenre)
 router.get('/addmovie', getAddMovie)
+router.get('/favorites', getFavorites)
 router.get('/updatemovie', getUpdateMovie)
+router.get('/filteredbygenre', findByGenre)
 router.get('/logout', logout)
 
 router.post('/addmovie', addMovie)

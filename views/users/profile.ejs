@@ -6,7 +6,8 @@
    <title>Document</title>
 </head>
 <body>
-   <h1><%= user.name %> you can update your info here.</h1>
+   <h1><%= user.name %> you can update your info here.</h1><br>
+   <a href="/movies">Go Back</a><hr>
    <form action="/users/update?_method=PUT" method="POST">
       <label>Name</label><br>
       <input type="text" value="<%= user.name %>" name="name"><br>

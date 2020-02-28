@@ -51,30 +51,23 @@ module.exports={
    },
    
    userUpdate: (req,res) => {
-      User.findOne({_id: req.user._id}).then((user) => {
-         user.name = req.body.name ? req.body.name : user.name
-         user.email = req.body.email ? req.body.email : user.email
+      User.findOne({email: req.user.email}).then((user) => {
+         if(!req.body.oldPass && !req.body.newPass && !req.body.newPassRepeat) return res.send('Please fill all input fields')
+         if(req.body.newPass !== req.body.newPassRepeat) return res.send('Repeat password doen\'t match')
 
-         if(req.body.oldPass && req.body.newPass && req.body.newPassRepeat){
+         bcrypt.compare(req.body.oldPass, user.password).then(result=>{
+            if(!result) return res.send('Old password doesn\'t match')
 
-            bcrypt.compare(req.body.oldPass, user.password).then(result=>{
-               if(!result) return res.send('Old password doesn\'t match')
-               if(req.body.newPass !== req.body.newPassRepeat) return res.send('Repeat password doesn\'t match')
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(req.body.newPass, salt);
+            user.name = req.body.name ? req.body.name : user.name
+            user.email = req.body.email ? req.body.email : user.email
+            user.password = hash
 
-               const salt = bcrypt.genSaltSync(10);
-               const hash = bcrypt.hashSync(req.body.newPass, salt);
-
-               user.password = hash
-               user.save().then(user=>{
-                  return res.status(200).json({message:'User updated'})
-               }).catch(err=>res.status(410).json({message: 'Couldn\'t save'}))
-            }).catch(err=> res.status(500).json({message:'Server errror', err}))
-         }
-         
-
-         user.save().then(user=>{
-            return res.status(200).json({message:'User updated'})
-         }).catch(err=>res.status(418).json({message: 'Couldn\'t save2'}))
+            user.save().then(user=>{
+               return res.status(200).json({message:'User updated'})
+            }).catch(err=>res.status(418).json({message: 'Couldn\'t save'}))
+         }).catch(err=> res.status(501).json('bcrypt didn\'t work'))
       }).catch(err=> res.status(500).json({message: 'Server Errrorrrr'}))
    },
 

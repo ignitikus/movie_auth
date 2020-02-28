@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>Welcome <a href="/users/profile"><%= user.name %></a></h1>
+    <a href="/movies/favorites">Go to favorites</a><br>
     <a href="/movies/logout">Logout</a>
     <form action="/movies/getmovie" method='get'>
       <label for="movie">Movie:</label><br>

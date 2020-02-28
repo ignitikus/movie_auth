@@ -10,7 +10,7 @@ module.exports ={
    },
 
    getAddMovie: (req,res) => {
-      res.render('movies/addmovie', {title: 'Add a movie'})
+      return res.render('movies/addmovie', {title: 'Add a movie'})
    },
 
    getUpdateMovie: (req,res) => {
@@ -21,6 +21,15 @@ module.exports ={
       return res.status(400).json({message: 'Movie not found'})
       }).catch(err=>res.status(500).json({message:'Server Error'}))
    },
+
+   getFavorites: (req,res) => {
+      if(req.user.favorites.length<1) return res.render('movies/favorites')
+      Movie.find({title: {$in:req.user.favorites}}).then(movies=>{
+         return res.render('movies/favorites', {movies})
+      }).catch(err=> res.status(500).json({message: 'Something', err}))
+      
+   },
+   
    
 
    findMovie: (req,res) => {
