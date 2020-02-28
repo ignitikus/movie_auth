@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> <%= title %>  </title>
+</head>
+<body>
+   <h2>Your movie:</h2>
+   <form action="/movies/getmovie" method='GET'>
+      <label for="movie">Movie:</label><br>
+      <input type="text" name="movie" id="movie"><br>
+      <button type="submit">Find movie</button>
+   </form>
+
+   <hr>
+   <form action="/movies/updatemovie" method='GET'>
+      <label for="updateMovie">Incorrect info?</label><br>
+      <button type="submit">Click to correct</button>
+   </form>
+   
+   <hr>
+   <p>
+      <img src=<%= movie.poster %> alt="" style="max-width:200px">
+      <h2><% movie.title.split(' ').forEach(movie => { %>
+         <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
+      <% }) %> %> </h2>
+      <p><%= movie.rating %> </p>
+      <p><%= movie.synopsis %> </p>
+      <p><%= movie.release_year %> </p>
+      <p><%= movie.genre.join(', ') %> </p>
+      <p><%= movie.director %> </p>
+      <p><%= movie.box_office %> </p>
+      <hr /> 
+   </p>
+   <a href="/movies">Home</a>
+</body>
+</html>

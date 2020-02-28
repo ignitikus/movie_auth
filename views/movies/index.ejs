@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Welcome <a href="/users/profile"><%= user.name %></a></h1>
+    <a href="/movies/logout">Logout</a>
+    <form action="/movies/getmovie" method='get'>
+      <label for="movie">Movie:</label><br>
+      <input type="text" name="movie" id="movie"><br>
+      <button type="submit">Find movie</button>
+    </form><br>
+    <form action="/movies/filteredbygenre" method='get'>
+      <label for="genre">Genre:</label><br>
+      <input type="text" name="genre" id="genre"><br>
+      <button type="submit">Find movies by genre</button>
+    </form>
+    <a href="/movies/addmovie">Add a movie to database</a><br>
+    <hr>
+    <% movies.forEach(({title, rating, synopsis, release_year, genre, director, box_office, poster}) => {%>
+      <img src=<%= poster %> alt="" style="max-width:200px">
+      <h2><% title.split(' ').forEach(movie => { %>
+          <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
+        <% }) %> %> </h2>
+      <p><%= rating %> </p>
+      <p><%= synopsis %> </p>
+      <p><%= release_year %> </p>
+      <p><%= genre.join(', ') %> </p>
+      <p><%= director %> </p>
+      <p><%= box_office %> </p>
+      <hr /> 
+    <%})%> 
+  </body>
+</html>

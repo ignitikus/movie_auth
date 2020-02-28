@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> <%= title %>  </title>
+</head>
+<body>
+   <h1> You searched: <%= genre %></h1>
+   <a href="/movies">Home</a>
+   <hr>
+   <% movies.forEach(({title, rating, synopsis, release_year, genre, director, box_office, poster}) => {%>
+      <img src=<%= poster %> alt="" style="max-width:200px">
+      <h2><% title.split(' ').forEach(movie => { %>
+         <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
+      <% }) %> %> </h2>
+      <p><%= rating %> </p>
+      <p><%= synopsis %> </p>
+      <p><%= release_year %> </p>
+      <p><%= genre.join(', ') %> </p>
+      <p><%= director %> </p>
+      <p><%= box_office %> </p>
+      <hr /> 
+   <%})%> 
+</body>
+</html>

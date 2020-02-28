@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> <%= title %>  </title>
+</head>
+<body>
+   <h1>Updating <%= movie.title.slice(0,1).toUpperCase() + movie.title.slice(1) %> </h1>
+   <form action="/movies/updatemovie/<%= movie.title %>?_method=PUT" method="POST">
+      <input type="text" name="title" id="title" value="<%= movie.title %>"><br>
+      <input type="text" name="rating" id="rating" value="<%= movie.rating %>"><br>
+      <textarea name="synopsis" id="synopsis" cols="30" rows="10" placeholder="Synopsis"><%= movie.synopsis %> </textarea><br>
+      <input type="text" name="release_year" id="release_year" value="<%= movie.release_year %>"><br>
+      <input type="text" name="genre" id="genre" value="<%= movie.genre %>"><br>
+      <input type="text" name="director" id="director" value="<%= movie.director %>"><br>
+      <input type="text" name="box_office" id="box_office" value="<%= movie.box_office %> "><br>
+      <input type="text" name="poster" id="poster" value="<%= movie.poster %> "><br>
+      <button type="submit">Update</button>
+   </form>
+</body>
+</html>

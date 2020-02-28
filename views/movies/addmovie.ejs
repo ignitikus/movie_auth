@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title> <%= title %>  </title>
+</head>
+<body>
+   <h1>To add a movie fill all the fields below</h1>
+   <form action="/movies/addmovie" method="post">
+      <input type="text" name="title" id="title" placeholder="Title"><br>
+      <input type="text" name="rating" id="rating" placeholder="Rating"><br>
+      <textarea name="synopsis" id="synopsis" cols="30" rows="10" placeholder="Synopsis"></textarea><br>
+      <input type="text" name="release_year" id="release_year" placeholder="Release Year"><br>
+      <input type="text" name="genre" id="genre" placeholder="Genre"><br>
+      <input type="text" name="director" id="director" placeholder="Director"><br>
+      <input type="text" name="box_office" id="box_office" placeholder="Box Office"><br>
+      <input type="text" name="poster" id="poster" placeholder="Poster"><br>
+      <button type="submit">Add movie</button>
+   </form>
+</body>
+</html>
