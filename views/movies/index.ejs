@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <link href="https://fonts.googleapis.com/css?family=Caladea&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title><%= title %></title>
   </head>
   <body>
-    <h1>Welcome <a href="/users/profile"><%= user.name %></a></h1>
-    <a href="/movies/favorites">Go to favorites</a><br>
-    <a href="/movies/logout">Logout</a>
-    <form action="/movies/getmovie" method='get'>
-      <label for="movie">Movie:</label><br>
-      <input type="text" name="movie" id="movie"><br>
-      <button type="submit">Find movie</button>
-    </form><br>
-    <form action="/movies/filteredbygenre" method='get'>
-      <label for="genre">Genre:</label><br>
-      <input type="text" name="genre" id="genre"><br>
-      <button type="submit">Find movies by genre</button>
-    </form>
-    <a href="/movies/addmovie">Add a movie to database</a><br>
-    <hr>
+    <div class="main-container">
+      <div class="sub-container">
+        <h1>Welcome <a href="/users/profile"><%= user.name %></a></h1>
+        <a href="/movies/favorites">Go to favorites</a>
+        <a href="/movies/logout">Logout</a>
+        <hr />
+        <form action="/movies/getmovie" method='GET'>
+          <label for="movie">Movie:</label><br>
+          <input type="text" name="movie" id="movie"><br>
+          <button type="submit">Find movie</button>
+        </form><br>
+        <form action="/movies/filteredbygenre" method='GET'>
+          <label for="genre">Genre:</label><br>
+          <input type="text" name="genre" id="genre"><br>
+          <button type="submit">Find movies by genre</button>
+        </form>
+        <a href="/movies/addmovie">Add a movie to database</a><br>
+        <hr>
+      </div>
+    </div>
     <% movies.forEach(({title, rating, synopsis, release_year, genre, director, box_office, poster}) => {%>
       <form action="/movies/addtofavorites/<%= title %>?_method=PUT" method=POST>
       <img src=<%= poster %> alt="poster for <%= title %>" style="max-width:200px">

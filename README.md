@@ -1,34 +1,26 @@
-# movie_auth
+# Welcome to MOVIE_AUTH project. 
 
-Make a new project called movie_auth. You will need a new github repo to go with it.
-
-** use separate routes for user and movies
-
-** create a checklist for yourself. a plan of action. you are not starting from scratch here but you need to think about
-what needs to be done to combine the two.
-
-** turn in the checklist
+Main features:
+* Use of passport (local-strategy) - login/register
+* Routes validation
 
 
-create new login app by copying the one we did
-add the movie api you created earlier this week to it.
-do not ruin the movie api you already did…just take the code and copy it over.
-goal is to have both working together.
-create basic ejs pages for all
-when the user logs in, they should see a simple ejs page with anchor options:
-to view movies, add a movie, update a movie
-create pages for each that work.
+Accessible routes:
+   * `/` - main page with two links(login/register)
+   * `/403` - auto-redirect if user tries to access certain pages without logging in
+   * `/404` - auto-redirect if wrong address was put in
 
+   * `/users` - access to list of users in database
+      * `/login` - login page
+      * `/register` - register page
+      * `/profile` - user can change their name, email, and password
+   
+   * `/movies` - displays all movies in database. User have options to access their profile, access their favorites, add a movie to database, search for title(partial string search supported), search movies by genre.
+      * `/getmovie` - displays found movie(option to update information fo found movie)
+         * `/updatemovie` - display form with pre-filled values for easier editing. 
+      * `/addmovie` - displays form to add a movie
+      * `/favorites` - displays all movies added by user to their favorites(option to remove from favorites)
+      *`/filteredbygenre` - display all movies in searched genre
+      * `/logout` - logs out current user and destroys session
 
-**NO CSS required
-
-
-stretch:
-user can only see movie pages when logged in
-validate routes
-user can update profile including password
-HINT: (think about the login and bcrypt)
-old password
-new password twice
-user sees only the movies user has added
-add css
+   

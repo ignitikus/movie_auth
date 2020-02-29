@@ -3,6 +3,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://fonts.googleapis.com/css?family=Caladea&display=swap" rel="stylesheet">
+   <link rel='stylesheet' href='/stylesheets/style.css' />
    <title> <%= title %>  </title>
 </head>
 <body>
@@ -20,19 +22,19 @@
    </form>
    
    <hr>
-   <p>
-      <img src=<%= movie.poster %> alt="" style="max-width:200px">
-      <h2><% movie.title.split(' ').forEach(movie => { %>
-         <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
+   <% movies.forEach(({title, rating, synopsis, release_year, genre, director, box_office, poster}) => {%>
+      <img src=<%= poster %> alt="poster for <%= title %>" style="max-width:200px">
+      <h2><% title.split(' ').forEach(movie => { %>
+      <%= movie.slice(0,1).toUpperCase()+ movie.slice(1) %> 
       <% }) %> %> </h2>
-      <p><%= movie.rating %> </p>
-      <p><%= movie.synopsis %> </p>
-      <p><%= movie.release_year %> </p>
-      <p><%= movie.genre.join(', ') %> </p>
-      <p><%= movie.director %> </p>
-      <p><%= movie.box_office %> </p>
+      <p><%= rating %> </p>
+      <p><%= synopsis %> </p>
+      <p><%= release_year %> </p>
+      <p><%= genre.join(', ') %> </p>
+      <p><%= director %> </p>
+      <p><%= box_office %> </p>
       <hr /> 
-   </p>
+   <%})%> 
    <a href="/movies">Home</a>
 </body>
 </html>

@@ -16,11 +16,11 @@ module.exports ={
 
    getUpdateMovie: (req,res) => {
       const movieTitle = req.headers.referer.split('=')[1]
-
-      Movie.findOne({title: movieTitle}).then(movie=>{
+      Movie.findOne({title: {$regex: movieTitle, $options: 'i'}}).then(movie=>{
       if(movie) return res.render('movies/updateMovie', {title:'Found Movie', movie})
       return res.status(400).json({message: 'Movie not found'})
-      }).catch(err=>res.status(500).json({message:'Server Error'}))
+      }).catch(err=>
+         res.status(500).json({message:'Server Error'}))
    },
 
    getFavorites: (req,res) => {
@@ -32,10 +32,13 @@ module.exports ={
    },
 
    findMovie: (req,res) => {
-      Movie.findOne({title: req.query.movie}).then(movie=>{
-         if(movie) return res.render('movies/foundMovie', {title:'Found Movie', movie})
+      if(!req.query.movie)return 
+      Movie.find({title: {$regex: req.query.movie, $options: 'i'}}).then(movies=>{
+         console.log(movies)
+         if(movies.length>0) return res.render('movies/foundMovie', {title:'Found Movie', movies})
          return res.status(400).json({message: 'Movie not found'})
-      }).catch(err=>res.status(500).json({message:'Server Error'}))
+      }).catch(error=>
+         res.status(500).json({message:'Server Error', error}))
    },
 
    findByGenre: (req,res) => {
@@ -115,7 +118,7 @@ module.exports ={
             movie.rating = req.body.rating ? req.body.rating : movie.rating,
             movie.synopsis = req.body.synopsis ? req.body.synopsis : movie.synopsis,
             movie.release_year = req.body.release_year ? req.body.release_year : movie.release_year,
-            movie.genre = req.body.genre ? req.body.genre : movie.genre,
+            movie.genre = req.body.genre ? req.body.genre.toLowerCase().split(' ').join('').split(',') : movie.genre.toLowerCase().split(' ').join('').split(','),
             movie.director = req.body.director ? req.body.director : movie.director,
             movie.box_office = req.body.box_office ? req.body.box_office : movie.box_office,
             movie.poster = req.body.poster ? req.body.poster : movie.poster

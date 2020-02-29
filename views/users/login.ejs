@@ -3,15 +3,25 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://fonts.googleapis.com/css?family=Caladea&display=swap" rel="stylesheet">
+   <link rel='stylesheet' href='/stylesheets/style.css' />
    <title>Login</title>
 </head>
 <body>
-   <form action="/users/login" method='POST'>
-      <label for="login" name='email'>Login</label><br>
-      <input type="text" name='email' placeholder="email">
-      <label for="password" name='password'></label><br>
-      <input type="text" name='password' placeholder="password"><br>
-      <button type="submit">Login</button>
-   </form>
+   <div class="main-container">
+      <div class="sub-container">
+         <form action="/users/login" method='POST'>
+            <h1>Login</h1>
+            <label for="login" name='email'></label>
+            <input type="text" name='email' placeholder="email">
+            <label for="password" name='password'></label><br>
+            <input type="text" name='password' placeholder="password"><br>
+            <button type="submit">Login</button>
+         </form>
+         <div>
+            <a href="/">Home</a> | <a href="/users/register">Register</a>
+         </div>
+      </div>
+   </div>
 </body>
 </html>

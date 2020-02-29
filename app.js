@@ -63,11 +63,6 @@ app.use('/movies', moviesRouter);
 app.use('/users', usersRouter);
 app.use('/', indexPage)
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -77,6 +72,12 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// catch 404
+app.use(function(req, res, next) {
+  return res.render('404')
+  // next(createError(404));
 });
 
 module.exports = app;
